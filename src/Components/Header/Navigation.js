@@ -1,7 +1,9 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 function Navigation() {
+  const cartData = useSelector((state) => state.productsData.cartData);
   return (
     <div>
       <div className="collapse navbar-collapse " id="navbarNav">
@@ -31,7 +33,7 @@ function Navigation() {
           <li className="nav-item">
             <Link className="nav-link" to="/cart">
               Cart <i class="bi bi-cart"></i>
-              <sup className="text-white"> {0} </sup>
+              <sup className="text-white"> {cartData.length} </sup>
             </Link>
           </li>
         </ul>

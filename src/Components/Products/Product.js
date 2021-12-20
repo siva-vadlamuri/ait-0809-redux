@@ -1,8 +1,11 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
+import { addToCart } from "../../redux/ActionCreators";
 
 function Product() {
+  const dispatch = useDispatch();
   const [product, setProduct] = useState({});
   const { id } = useParams();
 
@@ -10,6 +13,11 @@ function Product() {
     const { data } = await axios.get(`https://fakestoreapi.com/products/${id}`);
     setProduct(data);
     console.log(data);
+  };
+
+  const handleClick = (product) => {
+    dispatch(addToCart(product));
+    console.log(product);
   };
 
   useEffect(() => {
@@ -45,7 +53,12 @@ function Product() {
                 <p className="p-2">{product.description}</p>
               </div>
               <div className="product__addToCart">
-                <button className="btn btn-info px-3 py-2">Add to cart</button>
+                <button
+                  className="btn btn-info px-3 py-2"
+                  onClick={() => handleClick(product)}
+                >
+                  Add to cart
+                </button>
               </div>
             </div>
           </div>
