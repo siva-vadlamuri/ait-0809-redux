@@ -1,17 +1,25 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { fetchTheProducts } from "../../redux/ActionCreators";
+import { useDispatch, useSelector } from "react-redux";
 // import dotenv from "dotenv";
 function Products() {
-  const [products, setProducts] = useState([]);
+  const state = useSelector((state) => state.productsData.products);
+  console.log(state);
+  const [products, setProducts] = useState(state);
+  const dispatch = useDispatch();
 
-  const getProducts = async () => {
-    const { data } = await axios.get("https://fakestoreapi.com/products/");
-    // console.log(data);
-    setProducts(data);
-  };
+  //   const getProducts = async () => {
+  //     const { data } = await axios.get(process.env.REACT_APP_FAKE_STORE_API);
+  //     console.log(process.env.REACT_APP_FAKE_STORE_API);
+  //     // console.log(data);
+  //     setProducts(data);
+  //   };
   useEffect(() => {
-    getProducts();
+    // getProducts();
+    // console.log(fetchTheProducts());
+    dispatch(fetchTheProducts());
   }, []);
   return (
     <div>
